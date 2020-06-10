@@ -31,6 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise'
 gem 'fast_jsonapi'
+gem 'httparty'
+gem "figaro"
 
 
 group :development, :test do
