@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   root to: 'jobs#index'
 
-  resources :jobs, only: [:index]
+  resources :jobs, only: [:index, :show]
   resources :favourites, only: [:index, :create, :destroy]
 end
