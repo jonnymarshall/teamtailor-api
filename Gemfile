@@ -33,6 +33,7 @@ gem 'devise'
 gem 'fast_jsonapi'
 gem 'httparty'
 gem "figaro"
+gem "bulma-rails", "~> 0.8.2"
 
 
 group :development, :test do
