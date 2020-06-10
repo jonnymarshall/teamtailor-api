@@ -1,0 +1,25 @@
+<section class="hero is-fullheight-with-navbar hero-image">
+  <div class="hero-body">
+    <div class="container has-text-centered u-transition-all-1s" data-controller="homepage-search-position" data-target="homepage-search-position.centralContainer" style="margin-bottom: 0px;">
+      <img class="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg">
+      <div class="columns">
+        <div class="column is-paddingless"></div>
+        <div class="column is-two-fifths" data-controller="algolia-places">
+          <form class="form-group col-xs-6 c-field-has-autocomplete-results" action="/venues" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+            <div class="field has-addons">
+              <p class="control is-expanded">
+                <input class="input is-primary has-text-centered" placeholder="Find a great place to work from in Frankfurt am Main" data-target="algolia-places.addressInput" data-request-path="/location_search" data-action="keyup->algolia-places#changeHandler" type="text" name="location" id="location">
+              </p>
+              <p class="control">
+                <input type="submit" name="commit" value="Search" class="button is-primary" data-target="algolia-places.submitButton">
+              </p>
+            </div>
+            <div class="bu-prev-element-margin-b-counter c-autocomplete-results-container" data-target="algolia-places.resultsContainer homepage-search-position.resultsContainer ">
+            </div>
+          </form>
+          </div>
+        <div class="column is-paddingless"></div>
+      </div>
+    </div>
+  </div>
+</section>

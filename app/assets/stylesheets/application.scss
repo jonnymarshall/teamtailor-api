@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+// Config
+@import "config/bulma_variables";
+
+ // Libraries
+ @import "bulma";
+
+
+ // Pages
+ @import "pages/home";
