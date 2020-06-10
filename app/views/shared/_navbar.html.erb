@@ -1,0 +1,30 @@
+<nav id="navbar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation" data-controller="mobile-menu">
+  <div class="navbar-brand">
+    <%= link_to root_path do %>
+      <div class="is-flex navbar-item u-h-100pc">
+        <%= image_tag "https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg" %>
+      </div>
+    <% end %>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mobile-menu.hamburger" data-action="mobile-menu#doThisThing">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="c-navbar-links" class="navbar-menu" data-target="mobile-menu.menu">
+    <div class="navbar-end">
+      <% if user_signed_in? %>
+      <%= link_to "Favourites", favourites_path, class: "navbar-item heading is-size-6-touch" %>
+        <%= link_to "Account Settings", edit_user_registration_path, class: "navbar-item heading is-size-6-touch" %>
+        <%= link_to "Log Out", destroy_user_session_path, class: "navbar-item heading is-size-6-touch", method: :delete %>
+      <% else %>
+        <div class="navbar-item heading is-size-6-touch">
+          <%= link_to "Sign up", new_user_registration_path, class: "button is-primary u-margin-r-10px" %>
+          <%= link_to "Log In", new_user_session_path, class: "button is-light" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>
