@@ -2,10 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Status Requests' do
 
-  describe 'Homepage' do
+  describe 'Root path' do
     it 'Responds with 200' do
       get('/')
       expect(response.status).to eql(200)
     end
   end
+
+  describe 'Favourites' do
+    it 'Responds with 200' do
+      get('/favourites')
+      expect(response.status).to eql(200)
+    end
+  end
+  
 end
