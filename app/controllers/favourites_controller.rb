@@ -13,19 +13,18 @@ class FavouritesController < ApplicationController
     favourite = Favourite.new(favourite_params)
     favourite.user = current_user
     
-    
     if favourite.save
-      render json: FavouriteSerializer.new(favourite).serialized_json
+      render json: { success: favourite }, status: 200
     else
       render json: { error: favourite.errors.messages }, status: 422
     end
   end
 
   def destroy
-    favourite = Favourite.find(params[:id])
+    favourite = Favourite.find_by(job_id: params[:job_id])
     
-    if favourite.save
-      head :no_content
+    if favourite.destroy
+      render json: { success: favourite }, status: 200
     else
       render json: { error: favourite.errors.messages }, status: 422
     end
@@ -34,11 +33,11 @@ class FavouritesController < ApplicationController
   private
 
   def favourite_params
-    params.require(:favourite).permit(:job_id)
+    params.permit(:job_id)
   end
 
   def fetch_favourites_for_user
-    Favourite.where(user: current_user)
-    render json: FavouriteSerializer.new(favourites).serialized_json
+    favourites = Favourite.where(user: current_user)
+    FavouriteSerializer.new(favourites).serialized_json
   end
 end

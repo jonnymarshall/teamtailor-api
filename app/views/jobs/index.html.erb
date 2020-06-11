@@ -52,7 +52,14 @@
                       <i class="fas fa-lg fa-envelope"></i>
                     </a>
                   </span>
-                  <span class="icon has-text-grey-dark">
+                  <span
+                    class="icon has-text-grey-dark u-pointer"
+                    data-controller="add-favourite"
+                    data-action="click->add-favourite#toggleFavourite"
+                    data-target="add-favourite.button"
+                    data-job-id="1"
+                    data-url=<%= "#{favourites_path}" %>
+                  >
                     <i class="fas fa-lg fa-heart"></i>
                   </span>
                 </div>
