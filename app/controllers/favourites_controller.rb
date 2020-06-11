@@ -1,10 +1,12 @@
 class FavouritesController < ApplicationController
   protect_from_forgery with: :null_session
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
-    favourites = Favourite.all
-    render json: FavouriteSerializer.new(favourites).serialized_json
+    respond_to do |format|
+      format.html
+      format.json { render json: fetch_favourites_for_user }
+    end 
   end
 
   def create
@@ -33,5 +35,10 @@ class FavouritesController < ApplicationController
 
   def favourite_params
     params.require(:favourite).permit(:job_id)
+  end
+
+  def fetch_favourites_for_user
+    Favourite.where(user: current_user)
+    render json: FavouriteSerializer.new(favourites).serialized_json
   end
 end

@@ -4,7 +4,9 @@ class JobsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.json { render json: fetch_jobs }
+      format.json {
+        render json: fetch_jobs(tailtailor_search_type_params[:type])
+      }
     end 
   end
 
@@ -13,8 +15,12 @@ class JobsController < ApplicationController
 
   private
 
-  def fetch_jobs
-    Teamtailor.new().run_query
+  def fetch_jobs(type)
+    Teamtailor.new(type).run_query
+  end
+
+  def tailtailor_search_type_params
+    params.permit(:type)
   end
   
 end
