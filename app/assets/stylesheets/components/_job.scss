@@ -1,0 +1,9 @@
+#c-job--right-section {
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  // width: 100%;
+  #content {
+    justify-content: space-between;
+  }
+}

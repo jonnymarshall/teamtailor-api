@@ -15,11 +15,18 @@
  */
 
 // Config
-@import "config/bulma_variables";
+@import "config/index";
 
- // Libraries
- @import "bulma";
+// Libraries
+@import "bulma";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
+// Utilities
+@import 'utilities/utilities';
 
- // Pages
- @import "pages/home";
+// Pages
+@import "pages/home";
+
+// Components
+@import 'components/index'

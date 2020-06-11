@@ -1,25 +1,108 @@
-<section class="hero is-fullheight-with-navbar hero-image">
-  <div class="hero-body">
-    <div class="container has-text-centered u-transition-all-1s" data-controller="homepage-search-position" data-target="homepage-search-position.centralContainer" style="margin-bottom: 0px;">
-      <img class="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg">
-      <div class="columns">
-        <div class="column is-paddingless"></div>
-        <div class="column is-two-fifths" data-controller="algolia-places">
-          <form class="form-group col-xs-6 c-field-has-autocomplete-results" action="/venues" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
-            <div class="field has-addons">
-              <p class="control is-expanded">
-                <input class="input is-primary has-text-centered" placeholder="Find a great place to work from in Frankfurt am Main" data-target="algolia-places.addressInput" data-request-path="/location_search" data-action="keyup->algolia-places#changeHandler" type="text" name="location" id="location">
-              </p>
-              <p class="control">
-                <input type="submit" name="commit" value="Search" class="button is-primary" data-target="algolia-places.submitButton">
-              </p>
+<div id="jobs-index" data-controller="jobs-index">
+  <section class="hero is-medium hero-image">
+    <div class="hero-body">
+      <div class="container has-text-centered u-transition-all-1s" data-controller="homepage-search-position" data-target="homepage-search-position.centralContainer" style="margin-bottom: 0px;">
+        <img class="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg">
+        <div class="columns">
+          <div class="column is-paddingless"></div>
+          <div class="column is-two-fifths" data-controller="algolia-places">
+            <form class="form-group col-xs-6 c-field-has-autocomplete-results" action="/venues" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <div class="field has-addons">
+                <p class="control is-expanded">
+                  <input class="input is-primary has-text-centered" placeholder="Search for your dream role" data-target="algolia-places.addressInput" data-request-path="/location_search" data-action="keyup->algolia-places#changeHandler" type="text" name="location" id="location">
+                </p>
+                <p class="control">
+                  <input type="submit" name="commit" value="Search" class="button is-primary" data-target="algolia-places.submitButton">
+                </p>
+              </div>
+              <div class="bu-prev-element-margin-b-counter c-autocomplete-results-container" data-target="algolia-places.resultsContainer homepage-search-position.resultsContainer ">
+              </div>
+            </form>
             </div>
-            <div class="bu-prev-element-margin-b-counter c-autocomplete-results-container" data-target="algolia-places.resultsContainer homepage-search-position.resultsContainer ">
-            </div>
-          </form>
-          </div>
-        <div class="column is-paddingless"></div>
+          <div class="column is-paddingless"></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <section class="section">
+    <div class="container" data-target="jobs-index.container">
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <div class="tags" data-controller="tags departments" data-target="departments.tags-container">
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Technology</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">CSS</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Flexbox</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Web Design</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Open Source</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Community</a>
+                </div>
+              </div>
+            
+              <div class="control">
+                <div class="tags has-addons">
+                  <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">Documentation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="c-job-main-section is-flex">
+            <figure class="image is-128x128 u-padding-10">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </figure>
+            <div id="c-job--right-section" class="is-flex u-padding-10">
+              <div id="content" class="is-flex">
+                <div id="job-title-and-description">
+                  <h1 class="title is-4">Title</h1>
+                  <h1 class="subtitle is-5">Pitch</h2>
+                  <!-- <h1 class="is-6">Body here</p> -->
+                </div>
+                <span class="tag is-primary">Primary</span>
+              </div>
+              <div id="footer" class="is-flex u-align-center">
+                <span class="icon is-medium  has-text-info">
+                  <i class="fas fa-2x fa-envelope"></i>
+                </span>
+                <span class="icon is-medium">
+                  <i class="fas fa-2x fa-heart"></i>
+                </span>
+              <div>
+              <div class="buttons">
+                <button class="button is-small is-primary is-rounded">View</button>
+                <button class="button is-small is-secondary is-rounded">Visit</button>
+                <button class="button is-small is-link is-rounded">Apply</button>
+              </div>
+            </div>
+          <div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
