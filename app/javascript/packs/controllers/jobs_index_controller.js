@@ -12,7 +12,21 @@ export default class extends Controller {
   async connect() {
     console.log(`${this.controllerName} connected.`)
     await this.executeRequest("jobs")
-    await this.jobsData.map((job) => this.createJob(job))
+    await this.populateList(this.jobsData)
+  }
+
+  clearResults() {
+    this.containerTarget.innerHTML = ""
+  }
+
+  populateList(data) {
+    data.map((job) => this.createJob(job))
+  }
+
+  searchHandler(e) {
+    let filteredJobs = this.jobsData.filter(job => job.attributes["title"].toLowerCase().includes(e.target.value.toLowerCase()))
+    this.clearResults()
+    this.populateList(filteredJobs)
   }
 
   async executeRequest(type) {
@@ -22,7 +36,7 @@ export default class extends Controller {
     await fetch(urlString + new URLSearchParams({
       type: type
     }),
-    { headers: { accept: "application/json"}})
+    { headers: { accept: "application/json" }})
       .then((response) => response.json())
       .then((data) => {
         self.jobsData = data.data
@@ -39,7 +53,6 @@ export default class extends Controller {
           <div>${job.id}</div>
           <div>${job.attributes["title"]}</div>
           <div>${job.attributes["pitch"]}</div>
-          <div>${job["attributes"].body}</div>
 
           <div>${job.links["careersite-job-url"]}</div>
           <div>${job.links["careersite-job-apply-url"]}</div>

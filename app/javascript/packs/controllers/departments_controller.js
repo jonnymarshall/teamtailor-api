@@ -4,7 +4,7 @@ export default class extends Controller {
 
   controllerName = "departments_controller"
 
-  static targets = ["tags-container"]
+  static targets = ["tagsContainer"]
 
   departmentsData = null
   departmentHTMLComponents = []
@@ -12,7 +12,7 @@ export default class extends Controller {
   async connect() {
     console.log(`${this.controllerName} connected.`)
     await this.executeRequest("departments")
-    // await this.jobsData.map((job) => this.createDepartment(job))
+    await this.jobsData.map((job) => this.createDepartment(job))
   }
 
   async executeRequest(type) {
@@ -31,6 +31,12 @@ export default class extends Controller {
   }
 
   createDepartment(department) {
-    this.tagsContainerTarget.insertAdjacentHTML("afterbegin", ``);
+    this.tagsContainerTarget.insertAdjacentHTML("afterbegin", `
+      <div class="control">
+        <div class="tags has-addons">
+          <a class="tag" data-target="tags.tag" data-action="click->tags#activateTag">${department.attributes["name"]}</a>
+        </div>
+      </div>
+    `);
   }
 }
