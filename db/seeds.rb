@@ -6,13 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# ----------CLEAN DB----------
+puts 'Cleaning database...'
+Favourite.destroy_all
+User.destroy_all
+puts 'Cleaned database...'
+
+puts 'Creating user...'
 user = User.create({
   email: "hello@example.com",
   password: "password"
 })
+puts 'Created user...'
+
+puts 'Creating favourites...'
 favourites = Favourite.create([
   {
     job_id: "1234",
     user: user
   }
 ])
+puts 'Created favourites...'
