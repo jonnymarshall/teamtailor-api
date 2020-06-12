@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-import Job from '../components/Job'
+import Job from './Job'
 import Favourites from './Favourites/Favourites'
 
 
-const App = () => {
+const JobsIndex = () => {
   return (
     <React.Fragment>
       <section className="hero is-medium hero-image">
@@ -63,4 +63,4 @@ const App = () => {
   );
 }
 
-export default App
+export default JobsIndex
