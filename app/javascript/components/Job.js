@@ -16,7 +16,7 @@ const Job = (props) => {
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
 
   return (
-    <div className="c-job-main-section is-flex">
+    <div id="c-job-main-section" className="is-flex">
       <figure className="image is-128x128 u-padding-10">
         <img src={image}></img>
       </figure>
