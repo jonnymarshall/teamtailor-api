@@ -41,7 +41,8 @@ class JobsIndex extends Component {
         links: {
           careersiteJobUrl: job.links["careersite-job-url"],
           careersiteJobApplyUrl: job.links["careersite-job-apply-url"]
-        }
+        },
+        isExpanded: false
       })) }))
   }
 
@@ -119,7 +120,7 @@ class JobsIndex extends Component {
               <img className="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg"></img>
               <div className="columns">
                 <div className="column is-paddingless"></div>
-                <div className="column is-two-fifths" data-controller="algolia-places">
+                <div className="column is-10 is-offset-1">
                   <form className="form-group col-xs-6 c-field-has-autocomplete-results" action="/venues" acceptCharset="UTF-8" method="get">
                     <input name="utf8" type="hidden" value="✓"></input>
                     <div className="field has-addons">
@@ -132,8 +133,7 @@ class JobsIndex extends Component {
                       </p>
                     </div>
                     <div
-                      className="bu-prev-element-margin-b-counter c-autocomplete-results-container"
-                      data-target="algolia-places.resultsContainer homepage-search-position.resultsContainer ">
+                      className="bu-prev-element-margin-b-counter c-autocomplete-results-container">
                     </div>
                   </form>
                 </div>
@@ -146,7 +146,7 @@ class JobsIndex extends Component {
         <section className="section">
           <div className="container">
             <div className="columns">
-              <div className="column is-three-fifths is-offset-one-fifth">
+              <div className="column is-10 is-offset-1">
                 <FavouritesToggle 
                   onClick={this.toggleShowFavourite.bind(this)}
                   displayingFavouriteJobs={displayingFavouriteJobs}
@@ -159,17 +159,17 @@ class JobsIndex extends Component {
         <section className="section is-paddingless-touch">
           <div className="container">
             <div className="columns">
-              <div className="column is-three-fifths is-offset-one-fifth">
-                <div className="tags" data-controller="tags departments">
+              <div className="column is-10 is-offset-1">
+                <div className="tags">
                   <div className="field is-grouped is-grouped-multiline" data-target="departments.tagsContainer">
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="container"  data-controller="add-favourite" data-target="jobs-index.container add-favourite.container" data-url="favourites_path">
+          <div className="container">
             <div className="columns">
-              <div className="column is-three-fifths is-offset-one-fifth">
+              <div className="column is-10 is-offset-1">
                 {teamtailorJobsFiltered && teamtailorJobsFiltered.map((job, index) =>
                   <Job
                     key={index}
@@ -183,6 +183,7 @@ class JobsIndex extends Component {
                     careersiteJobApplyUrl={job.links.careersiteJobApplyUrl}
                     favouriteIconActive={this.checkIfFavouriteExists(job.id)}
                     toggleFavourite={this.toggleFavourite.bind(this)}
+                    isActive={job.isExpanded}
                   >
                   </Job>
                 )}

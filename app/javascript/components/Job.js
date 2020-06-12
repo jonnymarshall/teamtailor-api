@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import ReactHtmlParser from 'react-html-parser';
+
 
 const Job = (props) => {
   const {jobId,
@@ -11,9 +14,11 @@ const Job = (props) => {
     careersiteJobUrl,
     careersiteJobApplyUrl,
     image,
+    isExpanded
   } = props;
 
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
+  const bodyContent = isExpanded ? ReactHtmlParser(body) : null
 
   return (
     <div id="c-job-main-section" className="is-flex">
@@ -25,7 +30,7 @@ const Job = (props) => {
           <div id="job-title-and-description">
             <h1 className="title is-size-4 is-size-6-mobile">{title}</h1>
             <h2 className="subtitle is-size-5 is-hidden-touch">{pitch}</h2>
-            {/* <p className="subtitle is-6">{body}</p> */}
+            {bodyContent}
           </div>
           <div id="icons">
             <span className="icon has-text-grey-dark">
@@ -45,9 +50,15 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
+            <button className="button is-small is-rounded">
+              <span className="icon">
+                <i className="fas fa-chevron-down"></i>
+              </span>
+              <span>See details</span>
+            </button>
             <a
               href={careersiteJobUrl}
-              className="button is-small is-secondary is-rounded"
+              className="button is-small is-info is-rounded"
               target="_blank"
             >Visit</a>
             <a
