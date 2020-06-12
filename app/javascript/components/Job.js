@@ -21,25 +21,8 @@ const Job = (props) => {
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
   const bodyHeight = isExpanded ? "fit-content" : "25px"
   const chevronDirection = isExpanded ? "up" : "down"
-  const showHideText = isExpanded ? "Hide" : "Show"
+  const showHide = isExpanded ? "Hide" : "Show"
 
-  let showHideButton
-  if (body.length > 200) {
-    showHideButton = <React.Fragment>
-      <button
-        className="button is-small is-rounded"
-        onClick={() => toggleExpandJob(jobId)}
-      >
-      <span className="icon">
-        <i className={`fas fa-chevron-${chevronDirection}`}></i>
-      </span>
-      <span>{showHideText} details</span>
-      </button>
-    </React.Fragment>
-  } else {
-    showHideButton = null
-  }
-  
   return (
     <div id="c-job-main-section" className="is-flex">
       <figure className="image is-128x128 u-padding-10">
@@ -72,7 +55,15 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
-            {showHideButton}
+            <button
+              className="button is-small is-rounded"
+              onClick={() => toggleExpandJob(jobId)}
+            >
+              <span className="icon">
+                <i className={`fas fa-chevron-${chevronDirection}`}></i>
+              </span>
+              <span className="is-hidden-touch">{showHide} details</span>
+            </button>
             <a
               href={careersiteJobUrl}
               className="button is-small is-info is-rounded"
