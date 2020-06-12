@@ -5,11 +5,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import JobsIndex from '../components/JobsIndex'
+import FavouritesIndex from '../components/FavouritesIndex'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <JobsIndex />,
+    <FavouritesIndex />,
     document.body.appendChild(document.createElement('div')),
   )
 })
