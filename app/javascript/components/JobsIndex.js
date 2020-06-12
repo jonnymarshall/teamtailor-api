@@ -8,14 +8,19 @@ import Favourites from './Favourites/Favourites'
 class JobsIndex extends Component {
   state = {
     jobsIndexPath: `http://localhost:3000?`,
+    favouritesIndexPath: `/favourites`,
     teamtailorJobs: [],
     teamtailorJobsFiltered: null,
     search: "",
-    searchPlaceholderText: "Search for your dream role"
+    csrfToken: null,
+    searchPlaceholderText: "Search for your dream role",
+    favouritedJobIds: []
   };
 
   componentDidMount() {
+    this.setState({csrfToken: document.head.querySelector("[name='csrf-token']").content})
     this.executeRequest("jobs")
+    this.getFavouritesJobIds()
   }
 
   async executeRequest(type) {
@@ -25,7 +30,7 @@ class JobsIndex extends Component {
     { headers: { accept: "application/json" }})
       .then((response) => response.json())
       .then(data => this.setState({ teamtailorJobs: data.data.map((job) => ({
-        id: job.id,
+        id: parseInt(job.id),
         title: job.attributes["title"],
         pitch: job.attributes["pitch"],
         email: job.attributes["mailbox"],
@@ -36,16 +41,38 @@ class JobsIndex extends Component {
       })) }))
   }
 
+  async getFavouritesJobIds() {
+    await fetch(this.state.favouritesIndexPath,
+    {
+      method: "GET",
+      headers: { accept: "application/json", "X-CSRF-Token": this.csrfToken }})
+        .then((response) => response.json())
+        .then((data) => {
+          data.data.forEach((favourite) => {
+            this.setState({favouritedJobIds: [...this.state.favouritedJobIds, parseInt(favourite.attributes.job_id)]})
+          })
+        })
+  }
+
+  toggleFavourite(jobId) {
+    // Ajax call to add favourite
+  }
+
+  checkFavouriteActiveState(jobId) {
+    return this.state.favouritedJobIds.includes(jobId)
+  }
+
   async filterJobs(event) {
     await this.setState({search: event.target.value})
-    // this.setState({teamtailorJobsFiltered: this.state.teamtailorJobs.filter(item => item.title.toLowerCase().includes(`${this.state.search.toLowerCase()}`))})
   }
 
   render() {
-    const { teamtailorJobs} = this.state;
+    const { teamtailorJobs, search, searchPlaceholderText} = this.state;
     const teamtailorJobsFiltered = teamtailorJobs.filter(job =>
       job.title.toLowerCase().includes(`${this.state.search.toLowerCase()}`)
     )
+    console.log(this.state.favouritedJobIds)
+    teamtailorJobsFiltered.map((job) => console.log(job.id))
 
     return (
       <React.Fragment>
@@ -62,8 +89,8 @@ class JobsIndex extends Component {
                       <p className="control is-expanded">
                         <Search
                           onChange={this.filterJobs.bind(this)}
-                          placeholder={this.state.searchPlaceholderText}
-                          value={this.state.search}>
+                          placeholder={searchPlaceholderText}
+                          value={search}>
                         </Search>
                       </p>
                     </div>
@@ -78,7 +105,6 @@ class JobsIndex extends Component {
             </div>
           </div>
         </section>
-
         
           <section className="section">
             <div className="container">
@@ -97,8 +123,12 @@ class JobsIndex extends Component {
                   {teamtailorJobsFiltered && teamtailorJobsFiltered.map((job, index) =>
                     <Job
                       key={index}
-                      id={job.id}
+                      jobId={job.id}
                       title={job.title}
+                      pitch={job.pitch}
+                      email={job.email}
+                      favouriteIconActive={this.checkFavouriteActiveState(job.id)}
+                      toggleFavourite={this.toggleFavourite.bind(this)}
                     >
                     </Job>
                   )}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 const Job = (props) => {
-  const {title} = props;
+  const {jobId, title, pitch, email, toggleFavourite, favouriteIconActive} = props;
+  const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
+
   return (
     <div className="c-job-main-section is-flex">
       <figure className="image is-128x128 u-padding-10">
@@ -11,17 +13,17 @@ const Job = (props) => {
         <div id="content" className="is-flex">
           <div id="job-title-and-description">
             <h1 className="title is-4">{title}</h1>
-            <h2 className="subtitle is-5">Pitch</h2>
+            <h2 className="subtitle is-5">{pitch}</h2>
           </div>
           <div id="icons">
             <span className="icon has-text-grey-dark">
-              <a href = "mailto:abc@example.com">
+              <a href={`mailto:${email}`} target="_blank">
                 <i className="fas fa-lg fa-envelope"></i>
               </a>
             </span>
             <span
-              className="icon has-text-grey-dark u-pointer"
-              data-action="click->add-favourite#toggleFavourite"
+              className={`icon has-text-${favouriteIconColor} u-pointer`}
+              onClick={toggleFavourite(jobId)}
               data-target="add-favourite.button"
               data-job-id="1"
             >

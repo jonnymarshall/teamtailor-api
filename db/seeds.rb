@@ -22,7 +22,7 @@ puts 'Created user...'
 puts 'Creating favourites...'
 favourites = Favourite.create([
   {
-    job_id: "1234",
+    job_id: "875879",
     user: user
   }
 ])
