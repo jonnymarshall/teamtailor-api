@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 
 const Job = (props) => {
-  const {jobId, title, pitch, email, toggleFavourite, favouriteIconActive} = props;
+  const {jobId,
+    title,
+    pitch,
+    email,
+    toggleFavourite,
+    favouriteIconActive,
+    careersiteJobUrl,
+    careersiteJobApplyUrl
+  } = props;
+
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
 
   return (
@@ -33,9 +42,17 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
-            <button className="button is-small is-primary is-rounded">View</button>
-            <button className="button is-small is-secondary is-rounded">Visit</button>
-            <button className="button is-small is-link is-rounded">Apply</button>
+            <a className="button is-small is-primary is-rounded">View</a>
+            <a
+              href={careersiteJobUrl}
+              className="button is-small is-secondary is-rounded"
+              target="_blank"
+            >Visit</a>
+            <a
+              href={careersiteJobApplyUrl}
+              className="button is-small is-link is-rounded"
+              target="_blank"
+            >Apply</a>
           </div>
         </div>
       </div>

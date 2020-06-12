@@ -148,6 +148,8 @@ class JobsIndex extends Component {
                       title={job.title}
                       pitch={job.pitch}
                       email={job.email}
+                      careersiteJobUrl={job.links.careersiteJobUrl}
+                      careersiteJobApplyUrl={job.links.careersiteJobApplyUrl}
                       favouriteIconActive={this.checkIfFavouriteExists(job.id)}
                       toggleFavourite={this.toggleFavourite.bind(this)}
                     >
