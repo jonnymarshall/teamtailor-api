@@ -4,11 +4,13 @@ const Job = (props) => {
   const {jobId,
     title,
     pitch,
+    body,
     email,
     toggleFavourite,
     favouriteIconActive,
     careersiteJobUrl,
-    careersiteJobApplyUrl
+    careersiteJobApplyUrl,
+    image,
   } = props;
 
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
@@ -16,13 +18,14 @@ const Job = (props) => {
   return (
     <div className="c-job-main-section is-flex">
       <figure className="image is-128x128 u-padding-10">
-        <img src="https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"></img>
+        <img src={image}></img>
       </figure>
       <div id="c-job--right-section" className="is-flex u-padding-10">
         <div id="content" className="is-flex">
           <div id="job-title-and-description">
             <h1 className="title is-4">{title}</h1>
             <h2 className="subtitle is-5">{pitch}</h2>
+            {/* <p className="subtitle is-6">{body}</p> */}
           </div>
           <div id="icons">
             <span className="icon has-text-grey-dark">

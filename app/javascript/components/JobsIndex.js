@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { Route, Switch } from 'react-router-dom'
 import Job from './Job'
 import Search from './Search'
-import Favourites from './Favourites/Favourites'
+import FavouritesToggle from './FavouritesToggle'
 
 
 class JobsIndex extends Component {
@@ -14,7 +14,9 @@ class JobsIndex extends Component {
     search: "",
     csrfToken: null,
     searchPlaceholderText: "Search for your dream role",
-    favouritedJobIds: []
+    favouritedJobIds: [],
+    displayingFavouriteJobs: false,
+    defaultImageUrl: "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"
   };
 
   componentDidMount() {
@@ -33,7 +35,9 @@ class JobsIndex extends Component {
         id: parseInt(job.id),
         title: job.attributes["title"],
         pitch: job.attributes["pitch"],
+        body: job.attributes["body"],
         email: job.attributes["mailbox"],
+        picture: job.attributes["picture"],
         links: {
           careersiteJobUrl: job.links["careersite-job-url"],
           careersiteJobApplyUrl: job.links["careersite-job-apply-url"]
@@ -81,6 +85,13 @@ class JobsIndex extends Component {
         })
   }
 
+  getImage(jobId) {
+    let job = this.state.teamtailorJobs.find(job => {
+      return job.id === jobId
+    })
+    return job.picture !== null ? job.picture["thumb"] : this.state.defaultImageUrl
+  }
+
   checkIfFavouriteExists(jobId) {
     return this.state.favouritedJobIds.includes(jobId)
   }
@@ -89,11 +100,20 @@ class JobsIndex extends Component {
     await this.setState({search: event.target.value})
   }
 
+  toggleShowFavourite(bool) {
+    this.setState({displayingFavouriteJobs: bool})
+  }
+
   render() {
-    const { teamtailorJobs, search, searchPlaceholderText} = this.state;
-    const teamtailorJobsFiltered = teamtailorJobs.filter(job =>
-      job.title.toLowerCase().includes(`${this.state.search.toLowerCase()}`)
+    const { teamtailorJobs, search, searchPlaceholderText, displayingFavouriteJobs} = this.state;
+    let teamtailorJobsFiltered = teamtailorJobs.filter(job =>
+      job.title.toLowerCase().includes(`${search.toLowerCase()}`)
     )
+    if (displayingFavouriteJobs) {
+      teamtailorJobsFiltered = teamtailorJobsFiltered.filter(job =>
+        this.state.favouritedJobIds.includes(job.id)
+      )
+    }
 
     return (
       <React.Fragment>
@@ -126,39 +146,54 @@ class JobsIndex extends Component {
             </div>
           </div>
         </section>
-        
-          <section className="section">
-            <div className="container">
-              <div className="columns">
-                <div className="column is-three-fifths is-offset-one-fifth">
-                  <div className="tags" data-controller="tags departments">
-                    <div className="field is-grouped is-grouped-multiline" data-target="departments.tagsContainer">
-                    </div>
+
+        <section className="section">
+          <div className="container">
+            <div className="columns">
+              <div className="column is-three-fifths is-offset-one-fifth">
+                <FavouritesToggle 
+                  onClick={this.toggleShowFavourite.bind(this)}
+                  displayingFavouriteJobs={displayingFavouriteJobs}
+                  />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="columns">
+              <div className="column is-three-fifths is-offset-one-fifth">
+                <div className="tags" data-controller="tags departments">
+                  <div className="field is-grouped is-grouped-multiline" data-target="departments.tagsContainer">
                   </div>
                 </div>
               </div>
             </div>
-            <div className="container"  data-controller="add-favourite" data-target="jobs-index.container add-favourite.container" data-url="favourites_path">
-              <div className="columns">
-                <div className="column is-three-fifths is-offset-one-fifth">
-                  {teamtailorJobsFiltered && teamtailorJobsFiltered.map((job, index) =>
-                    <Job
-                      key={index}
-                      jobId={job.id}
-                      title={job.title}
-                      pitch={job.pitch}
-                      email={job.email}
-                      careersiteJobUrl={job.links.careersiteJobUrl}
-                      careersiteJobApplyUrl={job.links.careersiteJobApplyUrl}
-                      favouriteIconActive={this.checkIfFavouriteExists(job.id)}
-                      toggleFavourite={this.toggleFavourite.bind(this)}
-                    >
-                    </Job>
-                  )}
-                </div>
+          </div>
+          <div className="container"  data-controller="add-favourite" data-target="jobs-index.container add-favourite.container" data-url="favourites_path">
+            <div className="columns">
+              <div className="column is-three-fifths is-offset-one-fifth">
+                {teamtailorJobsFiltered && teamtailorJobsFiltered.map((job, index) =>
+                  <Job
+                    key={index}
+                    jobId={job.id}
+                    title={job.title}
+                    pitch={job.pitch}
+                    body={job.body}
+                    image={this.getImage(job.id)}
+                    email={job.email}
+                    careersiteJobUrl={job.links.careersiteJobUrl}
+                    careersiteJobApplyUrl={job.links.careersiteJobApplyUrl}
+                    favouriteIconActive={this.checkIfFavouriteExists(job.id)}
+                    toggleFavourite={this.toggleFavourite.bind(this)}
+                  >
+                  </Job>
+                )}
               </div>
             </div>
-          </section>
+          </div>
+        </section>
       </React.Fragment>
     );
   }
