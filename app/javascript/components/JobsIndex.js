@@ -54,11 +54,34 @@ class JobsIndex extends Component {
         })
   }
 
-  toggleFavourite(jobId) {
-    // Ajax call to add favourite
+  async toggleFavourite(jobId) {
+    if (!this.checkIfFavouriteExists(jobId)) {
+      // Add Favourite
+      this.addOrDeleteFavourite("POST", "?", new URLSearchParams({
+        job_id: jobId
+      }))
+      this.setState({favouritedJobIds: [...this.state.favouritedJobIds, jobId]})
+    } else {
+      // Destroy Favourite
+      this.addOrDeleteFavourite("DELETE", "/", jobId)
+      const favouritedJobIdsUpdated = this.state.favouritedJobIds.filter(id => id !== jobId);
+      this.setState({ favouritedJobIds: favouritedJobIdsUpdated });
+    }
+    
   }
 
-  checkFavouriteActiveState(jobId) {
+  async addOrDeleteFavourite(method, seperator, params) {
+    await fetch(this.state.favouritesIndexPath + seperator + params,
+    {
+      method: method,
+      headers: { accept: "application/json", "X-CSRF-Token": this.state.csrfToken }})
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+  }
+
+  checkIfFavouriteExists(jobId) {
     return this.state.favouritedJobIds.includes(jobId)
   }
 
@@ -71,8 +94,6 @@ class JobsIndex extends Component {
     const teamtailorJobsFiltered = teamtailorJobs.filter(job =>
       job.title.toLowerCase().includes(`${this.state.search.toLowerCase()}`)
     )
-    console.log(this.state.favouritedJobIds)
-    teamtailorJobsFiltered.map((job) => console.log(job.id))
 
     return (
       <React.Fragment>
@@ -127,7 +148,7 @@ class JobsIndex extends Component {
                       title={job.title}
                       pitch={job.pitch}
                       email={job.email}
-                      favouriteIconActive={this.checkFavouriteActiveState(job.id)}
+                      favouriteIconActive={this.checkIfFavouriteExists(job.id)}
                       toggleFavourite={this.toggleFavourite.bind(this)}
                     >
                     </Job>

@@ -23,7 +23,7 @@ const Job = (props) => {
             </span>
             <span
               className={`icon has-text-${favouriteIconColor} u-pointer`}
-              onClick={toggleFavourite(jobId)}
+              onClick={() => toggleFavourite(jobId)}
               data-target="add-favourite.button"
               data-job-id="1"
             >
