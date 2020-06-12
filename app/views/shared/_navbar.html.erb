@@ -1,6 +1,6 @@
 <nav id="navbar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation" data-controller="mobile-menu">
   <div class="navbar-brand">
-    <%= link_to root_path do %>
+    <%= link_to root_path, data: { turbolinks: false } do %>
       <div class="is-flex navbar-item u-h-100pc">
         <%= image_tag "https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg" %>
       </div>

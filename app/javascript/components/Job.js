@@ -14,11 +14,14 @@ const Job = (props) => {
     careersiteJobUrl,
     careersiteJobApplyUrl,
     image,
-    isExpanded
+    isExpanded,
+    toggleExpandJob
   } = props;
 
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
-  const bodyContent = isExpanded ? ReactHtmlParser(body) : null
+  const bodyHeight = isExpanded ? "fit-content" : "25px"
+  const chevronDirection = isExpanded ? "up" : "down"
+  const showHide = isExpanded ? "Hide" : "Show"
 
   return (
     <div id="c-job-main-section" className="is-flex">
@@ -30,7 +33,9 @@ const Job = (props) => {
           <div id="job-title-and-description">
             <h1 className="title is-size-4 is-size-6-mobile">{title}</h1>
             <h2 className="subtitle is-size-5 is-hidden-touch">{pitch}</h2>
-            {bodyContent}
+            <div id="job-body" style={{maxHeight: bodyHeight}}>
+              {ReactHtmlParser(body)}
+            </div>
           </div>
           <div id="icons">
             <span className="icon has-text-grey-dark">
@@ -50,11 +55,14 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
-            <button className="button is-small is-rounded">
+            <button
+              className="button is-small is-rounded"
+              onClick={() => toggleExpandJob(jobId)}
+            >
               <span className="icon">
-                <i className="fas fa-chevron-down"></i>
+                <i className={`fas fa-chevron-${chevronDirection}`}></i>
               </span>
-              <span>See details</span>
+              <span>{showHide} details</span>
             </button>
             <a
               href={careersiteJobUrl}

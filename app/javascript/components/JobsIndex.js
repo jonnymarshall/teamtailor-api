@@ -72,7 +72,6 @@ class JobsIndex extends Component {
       const favouritedJobIdsUpdated = this.state.favouritedJobIds.filter(id => id !== jobId);
       this.setState({ favouritedJobIds: favouritedJobIdsUpdated });
     }
-    
   }
 
   async addOrDeleteFavourite(method, seperator, params) {
@@ -101,8 +100,20 @@ class JobsIndex extends Component {
     this.setState({displayingFavouriteJobs: bool})
   }
 
+  toggleExpandJob(jobId) {
+    console.log("got here")
+    const { teamtailorJobs } = this.state
+
+    const job = teamtailorJobs.find(job => {
+      return job.id === jobId
+    })
+
+    job.isExpanded = !job.isExpanded
+    this.setState({ teamtailorJobs })
+  }
+
   render() {
-    const { teamtailorJobs, search, searchPlaceholderText, displayingFavouriteJobs} = this.state;
+    const { teamtailorJobs, search, searchPlaceholderText, displayingFavouriteJobs} = this.state
     let teamtailorJobsFiltered = teamtailorJobs.filter(job =>
       job.title.toLowerCase().includes(`${search.toLowerCase()}`)
     )
@@ -120,7 +131,7 @@ class JobsIndex extends Component {
               <img className="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg"></img>
               <div className="columns">
                 <div className="column is-paddingless"></div>
-                <div className="column is-10 is-offset-1">
+                <div className="column is-8 is-offset-2">
                   <form className="form-group col-xs-6 c-field-has-autocomplete-results" action="/venues" acceptCharset="UTF-8" method="get">
                     <input name="utf8" type="hidden" value="✓"></input>
                     <div className="field has-addons">
@@ -183,7 +194,8 @@ class JobsIndex extends Component {
                     careersiteJobApplyUrl={job.links.careersiteJobApplyUrl}
                     favouriteIconActive={this.checkIfFavouriteExists(job.id)}
                     toggleFavourite={this.toggleFavourite.bind(this)}
-                    isActive={job.isExpanded}
+                    isExpanded={job.isExpanded}
+                    toggleExpandJob={this.toggleExpandJob.bind(this)}
                   >
                   </Job>
                 )}
