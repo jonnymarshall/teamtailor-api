@@ -1,5 +1,8 @@
 #c-job-main-section {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  .image {
+    min-width: 128px;
+  }
   #c-job--right-section {
     flex-direction: column;
     justify-content: space-between;
