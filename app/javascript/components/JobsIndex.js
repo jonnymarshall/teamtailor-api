@@ -79,10 +79,6 @@ class JobsIndex extends Component {
     {
       method: method,
       headers: { accept: "application/json", "X-CSRF-Token": this.state.csrfToken }})
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
   }
 
   getImage(jobId) {
@@ -119,7 +115,7 @@ class JobsIndex extends Component {
       <React.Fragment>
         <section className="hero is-medium hero-image">
           <div className="hero-body">
-            <div className="container has-text-centered u-transition-all-1s" data-controller="homepage-search-position" data-target="homepage-search-position.centralContainer">
+            <div className="container has-text-centered">
               <img className="hero-logo" src="https://ember.cdn.teamtailor.com/ember-production/assets/images/teamtailor-logo-f442e875406f0a21cddfe9f211283b92.svg"></img>
               <div className="columns">
                 <div className="column is-paddingless"></div>
@@ -160,7 +156,7 @@ class JobsIndex extends Component {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section is-paddingless-touch">
           <div className="container">
             <div className="columns">
               <div className="column is-three-fifths is-offset-one-fifth">

@@ -6,14 +6,14 @@
       </div>
     <% end %>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mobile-menu.hamburger" data-action="mobile-menu#doThisThing">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="c-navbar-links" class="navbar-menu" data-target="mobile-menu.menu">
+  <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
       <% if user_signed_in? %>
         <%= link_to "Account Settings", edit_user_registration_path, class: "navbar-item heading is-size-6-touch" %>

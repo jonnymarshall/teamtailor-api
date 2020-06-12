@@ -23,8 +23,8 @@ const Job = (props) => {
       <div id="c-job--right-section" className="is-flex u-padding-10">
         <div id="content" className="is-flex">
           <div id="job-title-and-description">
-            <h1 className="title is-4">{title}</h1>
-            <h2 className="subtitle is-5">{pitch}</h2>
+            <h1 className="title is-size-4 is-size-6-mobile">{title}</h1>
+            <h2 className="subtitle is-size-5 is-hidden-touch">{pitch}</h2>
             {/* <p className="subtitle is-6">{body}</p> */}
           </div>
           <div id="icons">
@@ -45,7 +45,6 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
-            <a className="button is-small is-primary is-rounded">View</a>
             <a
               href={careersiteJobUrl}
               className="button is-small is-secondary is-rounded"
@@ -53,7 +52,7 @@ const Job = (props) => {
             >Visit</a>
             <a
               href={careersiteJobApplyUrl}
-              className="button is-small is-link is-rounded"
+              className="button is-small is-primary is-rounded"
               target="_blank"
             >Apply</a>
           </div>
