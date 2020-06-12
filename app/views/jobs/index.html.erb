@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="container" data-target="jobs-index.container">
+    <div class="container"  data-controller="add-favourite" data-target="jobs-index.container add-favourite.container" data-url=<%= "#{favourites_path}" %>>
       <div class="columns">
         <div class="column is-three-fifths is-offset-one-fifth">
           <div class="c-job-main-section is-flex">
@@ -48,17 +48,15 @@
                 </div>
                 <div id="icons">
                   <span class="icon has-text-grey-dark">
-                    <a href = "mailto:abc@example.com?subject = Feedback&body = Message">
+                    <a href = "mailto:abc@example.com">
                       <i class="fas fa-lg fa-envelope"></i>
                     </a>
                   </span>
                   <span
                     class="icon has-text-grey-dark u-pointer"
-                    data-controller="add-favourite"
                     data-action="click->add-favourite#toggleFavourite"
                     data-target="add-favourite.button"
                     data-job-id="1"
-                    data-url=<%= "#{favourites_path}" %>
                   >
                     <i class="fas fa-lg fa-heart"></i>
                   </span>

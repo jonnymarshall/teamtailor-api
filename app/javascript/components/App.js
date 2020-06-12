@@ -7,11 +7,9 @@ import Favourites from './Favourites/Favourites'
 
 const App = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={ Jobs }></Route>
-      <Route exact path="/jobs/:id" component={ Job }></Route>
-      <Route exact path="/favourites" component={Favourites}></Route>
-    </Switch>
+    <div>
+      <h1>hello react</h1>
+    </div>
   );
 }
 

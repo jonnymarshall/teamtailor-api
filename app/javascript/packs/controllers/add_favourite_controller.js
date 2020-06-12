@@ -4,7 +4,7 @@ export default class extends Controller {
 
   controllerName = "add_favourite_controller"
 
-  static targets = ["button"]
+  static targets = ["container", "button"]
 
   favouritesPath = null
   csrfToken = null
@@ -22,11 +22,12 @@ export default class extends Controller {
   }
 
   initializeValues() {
-    this.favouritesPath = this.buttonTarget.dataset.url
+    this.favouritesPath = this.containerTarget.dataset.url
     this.csrfToken = document.head.querySelector("[name='csrf-token']").content
   }
 
   setInitialIconState() {
+    debugger
     this.buttonTargets.forEach((button) => {
       if (this.favouritesJobIds.includes(button.dataset.jobId)) {
         button.firstElementChild.classList.toggle("has-text-primary")
