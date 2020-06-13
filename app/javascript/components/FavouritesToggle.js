@@ -13,12 +13,14 @@ const FavouriteToggle = (props) => {
       <button
         className={`button ${activeButtonClass(false)} is-selected`}
         onClick={() => onClick(false)}
+        title="View all jobs"
       >
       All
       </button>
       <button
         className={`button ${activeButtonClass(true)}`}
         onClick={() => onClick(true)}
+        title="View favourited jobs"
       >
         Favourites
       </button>

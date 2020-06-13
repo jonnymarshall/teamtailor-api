@@ -40,11 +40,15 @@ const Job = (props) => {
           <div id="icons">
             <span className="icon has-text-grey-dark u-margin-r-5">
               <a href={`mailto:${email}`} target="_blank">
-                <i className="fas fa-lg fa-envelope"></i>
+                <i
+                  className="fas fa-lg fa-envelope"
+                  title="Send email"
+                ></i>
               </a>
             </span>
             <span
               className={`icon has-text-${favouriteIconColor} u-pointer`}
+              title="Add to favourites"
               onClick={() => toggleFavourite(jobId)}
               data-target="add-favourite.button"
               data-job-id="1"
@@ -62,17 +66,22 @@ const Job = (props) => {
               <span className="icon">
                 <i className={`fas fa-chevron-${chevronDirection}`}></i>
               </span>
-              <span className="is-hidden-touch">{showHide} details</span>
+              <span
+              className="is-hidden-touch"
+              title={`${showHide} details`}
+              >{showHide} details</span>
             </button>
             <a
               href={careersiteJobUrl}
               className="button is-small is-info is-rounded"
               target="_blank"
+              title="Visit"
             >Visit</a>
             <a
               href={careersiteJobApplyUrl}
               className="button is-small is-primary is-rounded"
               target="_blank"
+              title="Apply"
             >Apply</a>
           </div>
         </div>
