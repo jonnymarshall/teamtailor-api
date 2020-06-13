@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FavouritesController do
+RSpec.describe JobsController do
 
   let(:u) { create(:user) }
 
@@ -24,6 +24,5 @@ RSpec.describe FavouritesController do
         expect(response).to render_template(:index)
       end
     end
-
   end
 end
