@@ -6,21 +6,36 @@ import FavouritesToggle from './FavouritesToggle'
 class JobsIndex extends Component {
   state = {
     jobsIndexPath: window.location.href ,
+    csrfToken: null,
     favouritesIndexPath: `/favourites`,
+    loginPagePath: null,
     teamtailorJobs: [],
     teamtailorJobsFiltered: null,
     search: "",
-    csrfToken: null,
+    userIsLoggedIn: false,
     searchPlaceholderText: "Search for your dream role",
     favouritedJobIds: [],
     displayingFavouriteJobs: false,
     defaultImageUrl: "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"
   }
+  
 
   componentDidMount() {
+    this.assignLoggedInState()
     this.setState({csrfToken: document.head.querySelector("[name='csrf-token']").content})
     this.fetchJobsFromApi("jobs")
-    this.getFavouritesJobIds()
+    if (this.state.userIsLoggedIn) {
+      this.getFavouritesJobIds()
+    }
+  }
+
+  assignLoggedInState() {
+    const loginButton = document.getElementById("login-button")
+    if (!loginButton) {
+      this.setState({ userIsLoggedIn: true })
+    } else {
+      this.setState({ loginPagePath: loginButton.href })
+    }
   }
 
   async fetchJobsFromApi(type) {
@@ -48,7 +63,7 @@ class JobsIndex extends Component {
     await fetch(this.state.favouritesIndexPath,
     {
       method: "GET",
-      headers: { accept: "application/json", "X-CSRF-Token": this.csrfToken }})
+      headers: { accept: "application/json", "X-CSRF-Token": this.state.csrfToken }})
         .then((response) => response.json())
         .then((data) => {
           data.data.forEach((favourite) => {
@@ -58,17 +73,21 @@ class JobsIndex extends Component {
   }
 
   async toggleFavourite(jobId) {
-    if (!this.checkIfFavouriteExists(jobId)) {
-      // Add Favourite
-      this.addOrDeleteFavourite("POST", "?", new URLSearchParams({
-        job_id: jobId
-      }))
-      this.setState({favouritedJobIds: [...this.state.favouritedJobIds, jobId]})
+    if (this.state.userIsLoggedIn) {
+      if (!this.checkIfFavouriteExists(jobId)) {
+        // Add Favourite
+        this.addOrDeleteFavourite("POST", "?", new URLSearchParams({
+          job_id: jobId
+        }))
+        this.setState({favouritedJobIds: [...this.state.favouritedJobIds, jobId]})
+      } else {
+        // Destroy Favourite
+        this.addOrDeleteFavourite("DELETE", "/", jobId)
+        const favouritedJobIdsUpdated = this.state.favouritedJobIds.filter(id => id !== jobId);
+        this.setState({ favouritedJobIds: favouritedJobIdsUpdated });
+      }
     } else {
-      // Destroy Favourite
-      this.addOrDeleteFavourite("DELETE", "/", jobId)
-      const favouritedJobIdsUpdated = this.state.favouritedJobIds.filter(id => id !== jobId);
-      this.setState({ favouritedJobIds: favouritedJobIdsUpdated });
+      window.location = this.state.loginPagePath
     }
   }
 
