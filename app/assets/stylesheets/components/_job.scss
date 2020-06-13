@@ -7,7 +7,10 @@
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
-    
+    #job-body {
+      overflow: hidden;
+      transition: all 2s;
+    }
     #content {
       justify-content: space-between;
     }

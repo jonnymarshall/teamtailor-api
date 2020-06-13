@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import ReactHtmlParser from 'react-html-parser';
+
 
 const Job = (props) => {
   const {jobId,
@@ -11,9 +14,14 @@ const Job = (props) => {
     careersiteJobUrl,
     careersiteJobApplyUrl,
     image,
+    isExpanded,
+    toggleExpandJob
   } = props;
 
   const favouriteIconColor = favouriteIconActive == true ? "primary" : "grey-dark"
+  const bodyHeight = isExpanded ? "fit-content" : "25px"
+  const chevronDirection = isExpanded ? "up" : "down"
+  const showHide = isExpanded ? "Hide" : "Show"
 
   return (
     <div id="c-job-main-section" className="is-flex">
@@ -25,10 +33,12 @@ const Job = (props) => {
           <div id="job-title-and-description">
             <h1 className="title is-size-4 is-size-6-mobile">{title}</h1>
             <h2 className="subtitle is-size-5 is-hidden-touch">{pitch}</h2>
-            {/* <p className="subtitle is-6">{body}</p> */}
+            <div id="job-body" style={{maxHeight: bodyHeight}}>
+              {ReactHtmlParser(body)}
+            </div>
           </div>
           <div id="icons">
-            <span className="icon has-text-grey-dark">
+            <span className="icon has-text-grey-dark u-margin-r-5">
               <a href={`mailto:${email}`} target="_blank">
                 <i className="fas fa-lg fa-envelope"></i>
               </a>
@@ -45,9 +55,18 @@ const Job = (props) => {
         </div>
         <div id="footer" className="is-flex">
           <div className="buttons">
+            <button
+              className="button is-small is-rounded"
+              onClick={() => toggleExpandJob(jobId)}
+            >
+              <span className="icon">
+                <i className={`fas fa-chevron-${chevronDirection}`}></i>
+              </span>
+              <span className="is-hidden-touch">{showHide} details</span>
+            </button>
             <a
               href={careersiteJobUrl}
-              className="button is-small is-secondary is-rounded"
+              className="button is-small is-info is-rounded"
               target="_blank"
             >Visit</a>
             <a
