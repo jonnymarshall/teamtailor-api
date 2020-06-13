@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Status Requests' do
 
   describe 'Root path' do
-    it 'Responds with 200' do
+    it 'Forces sign in' do
       get('/')
-      expect(response.status).to eql(200)
+      expect(response.status).to eql(302)
     end
   end
   
