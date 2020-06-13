@@ -1,13 +1,11 @@
 import React, { Component }  from 'react';
-import { Route, Switch } from 'react-router-dom'
 import Job from './Job'
 import Search from './Search'
 import FavouritesToggle from './FavouritesToggle'
 
-
 class JobsIndex extends Component {
   state = {
-    jobsIndexPath: `http://localhost:3000?`,
+    jobsIndexPath: window.location.href ,
     favouritesIndexPath: `/favourites`,
     teamtailorJobs: [],
     teamtailorJobsFiltered: null,
@@ -17,16 +15,16 @@ class JobsIndex extends Component {
     favouritedJobIds: [],
     displayingFavouriteJobs: false,
     defaultImageUrl: "https://images.unsplash.com/photo-1487528278747-ba99ed528ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"
-  };
+  }
 
   componentDidMount() {
     this.setState({csrfToken: document.head.querySelector("[name='csrf-token']").content})
-    this.executeRequest("jobs")
+    this.fetchJobsFromApi("jobs")
     this.getFavouritesJobIds()
   }
 
-  async executeRequest(type) {
-    await fetch(this.state.jobsIndexPath + new URLSearchParams({
+  async fetchJobsFromApi(type) {
+    await fetch(this.state.jobsIndexPath + "?" + new URLSearchParams({
       type: type
     }),
     { headers: { accept: "application/json" }})
