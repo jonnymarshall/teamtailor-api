@@ -1,6 +1,11 @@
-example_id                            | status  | run_time        |
-------------------------------------- | ------- | --------------- |
-./spec/models/favourite_spec.rb[1:1]  | pending | 0.00001 seconds |
-./spec/models/user_spec.rb[1:1]       | pending | 0.00001 seconds |
-./spec/requests/status_spec.rb[1:1:1] | failed  | 0.03993 seconds |
-./spec/requests/status_spec.rb[1:2:1] | passed  | 0.01651 seconds |
+example_id                                     | status | run_time        |
+---------------------------------------------- | ------ | --------------- |
+./spec/controllers/favourites_spec.rb[1:2:1:1] | passed | 0.01805 seconds |
+./spec/controllers/favourites_spec.rb[1:2:2:1] | passed | 0.04637 seconds |
+./spec/controllers/jobs_spec.rb[1:1:1:1]       | passed | 0.00296 seconds |
+./spec/controllers/jobs_spec.rb[1:2:1:1]       | passed | 0.01184 seconds |
+./spec/models/favourite_spec.rb[1:1:1]         | passed | 0.00666 seconds |
+./spec/models/favourite_spec.rb[1:2:1:1]       | passed | 0.00317 seconds |
+./spec/models/favourite_spec.rb[1:2:2:1]       | passed | 0.01351 seconds |
+./spec/models/user_spec.rb[1:1:1]              | passed | 0.00455 seconds |
+./spec/requests/status_spec.rb[1:1:1]          | passed | 0.02458 seconds |
