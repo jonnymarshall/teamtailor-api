@@ -24,15 +24,14 @@ class JobsIndex extends Component {
     this.assignLoggedInState()
     this.setState({csrfToken: document.head.querySelector("[name='csrf-token']").content})
     this.fetchJobsFromApi("jobs")
-    if (this.state.userIsLoggedIn) {
-      this.getFavouritesJobIds()
-    }
   }
 
   assignLoggedInState() {
     const loginButton = document.getElementById("login-button")
     if (!loginButton) {
-      this.setState({ userIsLoggedIn: true })
+      this.setState({ userIsLoggedIn: true }, function () {
+        this.getFavouritesJobIds()
+      });
     } else {
       this.setState({ loginPagePath: loginButton.href })
     }
