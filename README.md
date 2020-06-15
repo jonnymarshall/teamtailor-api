@@ -1,7 +1,6 @@
 # Teamtailor Jobs API
 
-## A React on Rails application which fetches live jobs from the teamtailor api and allows the user to filter and favourite jobs.
-## Favourites are persisted to the database for a user, and can be returned to and filtered at any time.
+## A React on Rails application which fetches live jobs from the teamtailor api and allows the user to filter and favourite jobs. Favourites are persisted to the database for a user, and can be returned to and filtered at any time.
 
 ### Compatibility
 
@@ -82,3 +81,8 @@ fetch("https://teamtailor-api.herokuapp.com/favourites/job_id=id",
   headers: { accept: "application/json", "X-CSRF-Token": csrfToken }
 })
 ```
+
+
+### Heroku
+
+This app is on heroku and can be [tested here](https://teamtailor-api.herokuapp.com/).
