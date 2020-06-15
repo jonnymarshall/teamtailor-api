@@ -6,6 +6,12 @@
 
 Tested for compatibility with RUBY VERSION: 2.7.1
 
+### Heroku
+
+This app is on heroku and can be [tested here](https://teamtailor-api.herokuapp.com/).
+
+
+# Models
 
 ### User.rb
 A user account must be created in order to be able to save favourites which are persisted to the database and can be used as a filter.
@@ -28,9 +34,12 @@ Favourite.create(job_id: integer, user: foreign_key)
 
 Each job_id must be unique to scope: user.
 
+
+# Requests
+
 ### Indexing, Creating and destroying favourites - AJAX
 
-A signed in user can make requests for their favourites in the following format:
+Requests are made via AJAX by a signed in user in the following format:
 
 ```
 GET https://teamtailor-api.herokuapp.com/
@@ -81,8 +90,3 @@ fetch("https://teamtailor-api.herokuapp.com/favourites/job_id=id",
   headers: { accept: "application/json", "X-CSRF-Token": csrfToken }
 })
 ```
-
-
-### Heroku
-
-This app is on heroku and can be [tested here](https://teamtailor-api.herokuapp.com/).
